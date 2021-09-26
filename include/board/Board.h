@@ -45,21 +45,27 @@ namespace board {
       update();
     }
 
-    void runLifeCycle() {
+    // one step (of lifecycle) board
+    void step() {
       for (Position::CoordinateElement aPosY = 0; aPosY < BoardLength; ++aPosY) {
-        runLifeCycleRow(aPosY);
+        step(aPosY);
       }
       update();
     }
 
   private:
-
-    void runLifeCycleRow(const Position::CoordinateElement& iPosY) {
+    // one step (of lifecycle) row
+    void step(const Position::CoordinateElement& iPosY) {
       for (Position::CoordinateElement aPosX = 0; aPosX < BoardLength; ++aPosX) {
-        const WrappedPosition aCellPosition(aPosX, iPosY);
-        rules::Sentencer::sentence(rules::Judge::verdict(countLivingNeighbours(Neighbours::neighbourPositions(aCellPosition))), cellAt(aCellPosition));
+        step(WrappedPosition(aPosX, iPosY));
       }
     }
+
+    // one step (of lifecycle) cell
+    void step(const WrappedPosition& iCellPosition) {
+      const CellCount aNeighbourCount(countLivingNeighbours(Neighbours::neighbourPositions(iCellPosition)));
+      rules::Sentencer::sentence(rules::Judge::verdict(aNeighbourCount), cellAt(iCellPosition));
+    }    
 
     // update board
     void update() {
@@ -71,13 +77,16 @@ namespace board {
       std::for_each(begin(iCellRow), end(iCellRow), [](auto& aCell){aCell.update();});
     }
 
+    // cell accessor
     board::Cell& cellAt(const Position& iPosition) {
       return _theBoard[iPosition._x][iPosition._y];
     }
 
-
+    // neighbour count
     CellCount countLivingNeighbours(const std::vector<WrappedPosition>& iNeighbourPositions) {
-      return std::count_if(cbegin(iNeighbourPositions), cend(iNeighbourPositions), [this](const auto& aPosition) { return cellAt(aPosition).alive(); });
+      return std::count_if(cbegin(iNeighbourPositions), cend(iNeighbourPositions), [this](const auto& aPosition) { 
+        return cellAt(aPosition).alive(); 
+      });
     }
 
   private:
