@@ -1,44 +1,14 @@
-#include <iostream>
-#include <algorithm>
-
-#include "Board.h"
-#include "Printer.h"
-#include "Position.h"
-
-#include <vector>
-
-#include <chrono>
-#include <thread>
-
+#include "Game.h"
 
 int main() {
+
   constexpr int kBoardLength = 10;
-
+  constexpr unsigned int numberOfCycles = 10;
+  constexpr unsigned int sleepDurationMillseconds = 100;
+  
   board::Board<kBoardLength> board;
-  
-  // init
-
-  std::vector<board::WrappedPosition<kBoardLength>> aInitialPositions;
-  aInitialPositions.push_back({ 4, 3 });  
-  aInitialPositions.push_back({ 4, 4 });
-  aInitialPositions.push_back({ 4, 5 }); 
-  aInitialPositions.push_back({ 5, 2 });
-  aInitialPositions.push_back({ 5, 3 });
-  aInitialPositions.push_back({ 6, 3 });
-  aInitialPositions.push_back({ 6, 4 });
-  aInitialPositions.push_back({ 7, 3 });
-
-  board.initialise(aInitialPositions);
-  print::Printer<kBoardLength>::print(board);
-  
-  
-  for (int i = 0; i < 10; ++i) {
-    std::cout << "\033[2J\033[1;1H"; // clears screen
-    board.runLifeCycle();
-    print::Printer<kBoardLength>::print(board);
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-  }
-
+  game::Game<kBoardLength>::setup(board);
+  game::Game<kBoardLength>::run(board, numberOfCycles, sleepDurationMillseconds);
   
   return 0;
 }

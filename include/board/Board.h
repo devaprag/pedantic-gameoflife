@@ -37,7 +37,7 @@ namespace board {
     typedef board::Neighbours<BoardLength> Neighbours;
 
   public:
-    void initialise(const std::vector<WrappedPosition>& iPositions) {
+    void setup(const std::vector<WrappedPosition>& iPositions) {
       for (const auto& p : iPositions) {
         board::Cell& aCell = _theBoard[p._x][p._y];
         aCell.stageBirth();
