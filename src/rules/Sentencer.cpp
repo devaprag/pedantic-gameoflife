@@ -4,7 +4,7 @@
 
 namespace rules {
 
-  void Sentencer::sentence(const Judgement& aJudgement, cell::Cell& aCell) {
+  void Sentencer::sentence(const Judgement& aJudgement, board::Cell& aCell) {
     if (stay(aJudgement)) {
       aCell.stageSame();
     }

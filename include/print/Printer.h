@@ -7,18 +7,18 @@
 #include <algorithm>
 #include <iostream>
 
-namespace printer {
+namespace print {
 
   // i print boards for fun
 
-  template<position::Position::CoordinateElement BoardLength>
+  template<board::Position::CoordinateElement BoardLength>
   class Printer {
   public:
     static void print(const board::Board<BoardLength>& board);
   };
 
-  template<position::Position::CoordinateElement BoardLength>
-  void printer::Printer<BoardLength>::print(const board::Board<BoardLength>& board) {
+  template<board::Position::CoordinateElement BoardLength>
+  void print::Printer<BoardLength>::print(const board::Board<BoardLength>& board) {
     for (auto& colrow : board._theBoard) {
       for (auto& cell : colrow) {
         static CellPrinter aCellPrinter;

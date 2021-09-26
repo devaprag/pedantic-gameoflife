@@ -1,6 +1,6 @@
 #include "Cell.h"
 
-namespace cell {
+namespace board {
 
   // move to next state
   void Cell::update() {
@@ -31,7 +31,7 @@ namespace cell {
   }
 
   // printer helper
-  printer::CellPrinter::PrintSymbol Cell::print(const printer::CellPrinter& iPrinter) const {
+  print::CellPrinter::PrintSymbol Cell::print(const print::CellPrinter& iPrinter) const {
     return iPrinter.symbol(_currentState);
   }
 

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace position {
+namespace board {
 
   // 2-dimensional coordinates
   // not stored in board, used for temporary indexing really

@@ -4,7 +4,7 @@
 
 #include <map>
 
-namespace cell {
+namespace board {
   class Cell;
 }
 
@@ -14,7 +14,7 @@ namespace rules {
 
   class Sentencer {
   public:
-    static void sentence(const Judgement& aJudgement, cell::Cell& aCell);
+    static void sentence(const Judgement& aJudgement, board::Cell& aCell);
 
   private:
     static const bool stay(const Judgement& aJudgement);

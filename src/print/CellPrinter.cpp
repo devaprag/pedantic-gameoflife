@@ -1,6 +1,6 @@
 #include "CellPrinter.h"
 
-namespace printer {
+namespace print {
 
   CellPrinter::CellPrinter() {
     _cellPrintStore[CellState::eAlive] = 'O';

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace cell {
+namespace board {
 
   enum struct CellState {
     eAlive,

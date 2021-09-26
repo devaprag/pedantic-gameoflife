@@ -3,7 +3,7 @@
 #include "CellState.h"
 #include "CellPrinter.h"
 
-namespace cell {
+namespace board {
   // hello I am a cell
   // I am alive or dead
   // 
@@ -34,7 +34,7 @@ namespace cell {
     const bool dead() const;
 
     // printer helper
-    printer::CellPrinter::PrintSymbol print(const printer::CellPrinter& iPrinter) const;
+    print::CellPrinter::PrintSymbol print(const print::CellPrinter& iPrinter) const;
 
   private:
     CellState _currentState;

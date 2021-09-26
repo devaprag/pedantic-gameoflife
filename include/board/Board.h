@@ -9,12 +9,12 @@
 #include <array>
 #include <algorithm>
 
-namespace printer {
-  template<position::Position::CoordinateElement BoardLength> class Printer;
+namespace print {
+  template<board::Position::CoordinateElement BoardLength> class Printer;
 }
 
 namespace board {
-  using position::Position;  
+  using board::Position;  
 
   // i own all the cells
   // i count neighbours and prepare the cells
@@ -23,18 +23,18 @@ namespace board {
   template<Position::CoordinateElement BoardLength>
   class Board
   {
-    template<position::Position::CoordinateElement BoardLength> friend class printer::Printer;
+    template<board::Position::CoordinateElement BoardLength> friend class print::Printer;
 
     typedef int CellCount;
-    typedef std::array<cell::Cell, BoardLength> CellRow; // single row, count elements horizontally
+    typedef std::array<board::Cell, BoardLength> CellRow; // single row, count elements horizontally
     typedef std::array<CellRow, BoardLength> CellRows; // collection of rows, count rows vertically
     typedef CellRows CellBoard;
-    typedef position::WrappedPosition<BoardLength> WrappedPosition;
+    typedef board::WrappedPosition<BoardLength> WrappedPosition;
 
   public:
     void initialise(const std::vector<WrappedPosition>& iPositions) {
       for (const auto& p : iPositions) {
-        cell::Cell& aCell = _theBoard[p._x][p._y];
+        board::Cell& aCell = _theBoard[p._x][p._y];
         aCell.stageBirth();
       }
       update();
@@ -70,7 +70,7 @@ namespace board {
       }
     }
 
-    cell::Cell& cellAt(const Position& iPosition) {
+    board::Cell& cellAt(const Position& iPosition) {
       return _theBoard[iPosition._x][iPosition._y];
     }
 
