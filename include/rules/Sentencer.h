@@ -4,14 +4,22 @@
 
 #include <map>
 
-// interpret and apply judgement
-class Cell;
-class Sentencer {
-public:
-  static void sentence(const Judgement& aJudgement, Cell& aCell);
+namespace cell {
+  class Cell;
+}
 
-private:
-  static const bool stay(const Judgement& aJudgement);
-  static const bool shouldDie(const Judgement& aJudgement);
-  static const bool shouldBeBorn(const Judgement& aJudgement);
-};
+namespace rules {
+
+  // interpret and apply judgement
+
+  class Sentencer {
+  public:
+    static void sentence(const Judgement& aJudgement, cell::Cell& aCell);
+
+  private:
+    static const bool stay(const Judgement& aJudgement);
+    static const bool shouldDie(const Judgement& aJudgement);
+    static const bool shouldBeBorn(const Judgement& aJudgement);
+  };
+
+}

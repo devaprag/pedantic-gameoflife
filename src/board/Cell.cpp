@@ -1,34 +1,38 @@
 #include "Cell.h"
 
-// move to next state
-void Cell::update() {
-  _currentState = _nextState;
-  _nextState = CellState::eUnknown;
-}
+namespace cell {
 
-// next state
-void Cell::stageBirth() {
-  _nextState = CellState::eAlive;
-}
+  // move to next state
+  void Cell::update() {
+    _currentState = _nextState;
+    _nextState = CellState::eUnknown;
+  }
 
-void Cell::stageDeath() {
-  _nextState = CellState::eDead;
-}
+  // next state
+  void Cell::stageBirth() {
+    _nextState = CellState::eAlive;
+  }
 
-void Cell::stageSame() {
-  _nextState = _currentState;
-}
+  void Cell::stageDeath() {
+    _nextState = CellState::eDead;
+  }
 
-// current state
-const bool Cell::alive() const {
-  return _currentState == CellState::eAlive;
-}
+  void Cell::stageSame() {
+    _nextState = _currentState;
+  }
 
-const bool Cell::dead() const {
-  return _currentState == CellState::eDead;
-}
+  // current state
+  const bool Cell::alive() const {
+    return _currentState == CellState::eAlive;
+  }
 
-// printer helper
-CellPrinter::PrintSymbol Cell::print(const CellPrinter& iPrinter) const {
-  return iPrinter.symbol(_currentState);
+  const bool Cell::dead() const {
+    return _currentState == CellState::eDead;
+  }
+
+  // printer helper
+  printer::CellPrinter::PrintSymbol Cell::print(const printer::CellPrinter& iPrinter) const {
+    return iPrinter.symbol(_currentState);
+  }
+
 }

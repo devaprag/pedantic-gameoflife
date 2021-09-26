@@ -14,11 +14,11 @@
 int main() {
   constexpr int kBoardLength = 10;
 
-  Board<kBoardLength> board;
+  board::Board<kBoardLength> board;
   
   // init
 
-  std::vector<WrappedPosition<kBoardLength>> aInitialPositions;
+  std::vector<position::WrappedPosition<kBoardLength>> aInitialPositions;
   aInitialPositions.push_back({ 4, 3 });  
   aInitialPositions.push_back({ 4, 4 });
   aInitialPositions.push_back({ 4, 5 }); 
@@ -29,13 +29,13 @@ int main() {
   aInitialPositions.push_back({ 7, 3 });
 
   board.initialise(aInitialPositions);
-  Printer<kBoardLength>::print(board);
+  printer::Printer<kBoardLength>::print(board);
   
   
   for (int i = 0; i < 10; ++i) {
     std::cout << "\033[2J\033[1;1H"; // clears screen
     board.runLifeCycle();
-    Printer<kBoardLength>::print(board);
+    printer::Printer<kBoardLength>::print(board);
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }
 

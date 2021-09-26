@@ -2,28 +2,32 @@
 
 #include "Cell.h"
 
-void Sentencer::sentence(const Judgement& aJudgement, Cell& aCell) {
-  if (stay(aJudgement)) {
-    aCell.stageSame();
+namespace rules {
+
+  void Sentencer::sentence(const Judgement& aJudgement, cell::Cell& aCell) {
+    if (stay(aJudgement)) {
+      aCell.stageSame();
+    }
+
+    if (shouldBeBorn(aJudgement)) {
+      aCell.stageBirth();
+    }
+
+    if (shouldDie(aJudgement)) {
+      aCell.stageDeath();
+    }
   }
 
-  if (shouldBeBorn(aJudgement)) {
-    aCell.stageBirth();
+  const bool Sentencer::stay(const Judgement& aJudgement) {
+    return aJudgement == Judgement::eStayTheSame;
   }
 
-  if (shouldDie(aJudgement)) {
-    aCell.stageDeath();
-  }    
-}
+  const bool Sentencer::shouldDie(const Judgement& aJudgement) {
+    return aJudgement == Judgement::eDie;
+  }
 
-const bool Sentencer::stay(const Judgement& aJudgement) {
-  return aJudgement == Judgement::eStayTheSame;
-}
+  const bool Sentencer::shouldBeBorn(const Judgement& aJudgement) {
+    return aJudgement == Judgement::eBeBorn;
+  }
 
-const bool Sentencer::shouldDie(const Judgement& aJudgement) {
-  return aJudgement == Judgement::eDie;
-}
-
-const bool Sentencer::shouldBeBorn(const Judgement& aJudgement) {
-  return aJudgement == Judgement::eBeBorn;
 }

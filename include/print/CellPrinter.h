@@ -3,12 +3,17 @@
 #include "CellState.h"
 #include <map>
 
-struct CellPrinter {
-  typedef char PrintSymbol;
+namespace printer {
+  using cell::CellState;
 
-  CellPrinter();
-  PrintSymbol symbol(const CellState& iCellState) const;
+  struct CellPrinter {
+    typedef char PrintSymbol;
 
-private:
-  std::map<CellState, PrintSymbol> _cellPrintStore;
-};
+    CellPrinter();
+    PrintSymbol symbol(const CellState& iCellState) const;
+
+  private:
+    std::map<CellState, PrintSymbol> _cellPrintStore;
+  };
+
+}
