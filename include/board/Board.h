@@ -63,16 +63,12 @@ namespace board {
 
     // update board
     void update() {
-      for (auto& aColRow : _theBoard) {
-        update(aColRow);
-      }
+      std::for_each(begin(_theBoard), end(_theBoard), [this](auto& aColRow){update(aColRow);});
     }
 
     // update row of cells
-    void update(CellRow& iCellRow) {
-      for (auto& aCell : iCellRow) {
-        aCell.update();
-      }
+    static void update(CellRow& iCellRow) {
+      std::for_each(begin(iCellRow), end(iCellRow), [](auto& aCell){aCell.update();});
     }
 
     board::Cell& cellAt(const Position& iPosition) {
@@ -81,7 +77,7 @@ namespace board {
 
 
     CellCount countLivingNeighbours(const std::vector<WrappedPosition>& iNeighbourPositions) {
-      return std::count_if(cbegin(iNeighbourPositions), cend(iNeighbourPositions), [&](const auto& aPosition) { return cellAt(aPosition).alive(); });
+      return std::count_if(cbegin(iNeighbourPositions), cend(iNeighbourPositions), [this](const auto& aPosition) { return cellAt(aPosition).alive(); });
     }
 
   private:
