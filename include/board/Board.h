@@ -1,7 +1,11 @@
 #pragma once
 
+// board
 #include "Cell.h"
 #include "Position.h"
+#include "Neighbours.h"
+
+// rules
 #include "Judge.h"
 #include "Sentencer.h"
 
@@ -30,6 +34,7 @@ namespace board {
     typedef std::array<CellRow, BoardLength> CellRows; // collection of rows, count rows vertically
     typedef CellRows CellBoard;
     typedef board::WrappedPosition<BoardLength> WrappedPosition;
+    typedef board::Neighbours<BoardLength> Neighbours;
 
   public:
     void initialise(const std::vector<WrappedPosition>& iPositions) {
@@ -52,7 +57,7 @@ namespace board {
     void runLifeCycleRow(const Position::CoordinateElement& iPosY) {
       for (Position::CoordinateElement aPosX = 0; aPosX < BoardLength; ++aPosX) {
         const WrappedPosition aCellPosition(aPosX, iPosY);
-        rules::Sentencer::sentence(rules::Judge::verdict(countLivingNeighbours(neighbourPositions(aCellPosition))), cellAt(aCellPosition));
+        rules::Sentencer::sentence(rules::Judge::verdict(countLivingNeighbours(Neighbours::neighbourPositions(aCellPosition))), cellAt(aCellPosition));
       }
     }
 
@@ -74,16 +79,6 @@ namespace board {
       return _theBoard[iPosition._x][iPosition._y];
     }
 
-    std::vector<WrappedPosition> neighbourPositions(WrappedPosition iPosition) {
-      return { iPosition.left(),
-               iPosition.right(),
-               iPosition.up(),
-               iPosition.down(),
-               iPosition.up().left(),
-               iPosition.up().right(),
-               iPosition.down().left(),
-               iPosition.down().right() };
-    }
 
     CellCount countLivingNeighbours(const std::vector<WrappedPosition>& iNeighbourPositions) {
       return std::count_if(cbegin(iNeighbourPositions), cend(iNeighbourPositions), [&](const auto& aPosition) { return cellAt(aPosition).alive(); });
