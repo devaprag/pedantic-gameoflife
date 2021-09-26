@@ -7,14 +7,17 @@ namespace rules {
   void Sentencer::sentence(const Judgement& aJudgement, board::Cell& aCell) {
     if (stay(aJudgement)) {
       aCell.stageSame();
+      return;
     }
 
     if (shouldBeBorn(aJudgement)) {
       aCell.stageBirth();
+      return;
     }
 
     if (shouldDie(aJudgement)) {
       aCell.stageDeath();
+      return;
     }
   }
 
